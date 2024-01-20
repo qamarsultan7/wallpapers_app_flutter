@@ -20,8 +20,9 @@ class AppUrls {
     String? query = searchProvider.category;
     return '${baseUrl}search?query=$query&per_page=100';
   }
+  //Api Key is wrong Use Your Own
   static String apikey =
-      'F9HcvnXykXrtJ4vkSop3XnXPVgTQ2wLZkOG8jYXuJF4uLzJYVBzz66kH';
+      'F9HcvnXykXrtJ4vkSop3XnXP';
 }
 
 // ImgeViewScreen Arguments
