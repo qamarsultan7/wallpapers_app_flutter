@@ -6,6 +6,8 @@
 .DS_Store
 .atom/
 .buildlog/
+.android
+.idea
 .history
 .svn/
 migrate_working_dir/
