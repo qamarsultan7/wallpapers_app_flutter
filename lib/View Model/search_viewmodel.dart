@@ -17,17 +17,28 @@ class SearchModel with ChangeNotifier {
     notifyListeners();
   }
 
+  void setHit() {
+    _hit = false;
+    notifyListeners();
+  }
+
   Future<void> fetchSearchresult(BuildContext context) async {
-    ApiResponse.Loading();
+    _setSearchresponse(ApiResponse.Loading());
     _hit = true;
     try {
       _repo.fetchsearchImages(BuildContext, context).then((value) {
         _setSearchresponse(ApiResponse.Completed(value));
       }).onError((error, stackTrace) {
-        ApiResponse.Error(error.toString());
+        _setSearchresponse(ApiResponse.Error(error.toString()));
       });
     } catch (e) {
-      ApiResponse.Error(e.toString());
+      _setSearchresponse(ApiResponse.Error(e.toString()));
     }
   }
+
+  void reset() {
+    _hit = false;
+    _getsearchresult = ApiResponse.Loading();
+  }
+ 
 }

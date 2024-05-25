@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:wallpapers_app_flutter/Model/DATA/Response/status.dart';
+import 'package:wallpapers_app_flutter/Resources/Widget/buttons.dart';
 import 'package:wallpapers_app_flutter/Resources/Widget/masonary_Grid.dart';
 import 'package:wallpapers_app_flutter/Resources/components/grid_view.dart';
 import 'package:wallpapers_app_flutter/View%20Model/search_viewmodel.dart';
@@ -23,7 +24,14 @@ class SearchGrid extends StatelessWidget {
               homeViewModel: seacrchmodel.getsearchresult,
             );
           case Status.ERROR:
-            return const Text('Error');
+            return Center(
+              child: buttons(context, 'Refresh', const Icon(Icons.refresh), () {
+                Future.delayed(const Duration(seconds: 1), () {
+                  Provider.of<SearchModel>(context, listen: false)
+                      .fetchSearchresult(context);
+                });
+              }),
+            );
           case Status.LOADING:
             return Shimmer.fromColors(
               baseColor: Colors.grey,

@@ -33,9 +33,6 @@ Widget searchBar(bool isReadOnly, BuildContext context) {
                       const UnderlineInputBorder(borderSide: BorderSide.none),
                   suffixIcon: GestureDetector(
                     onTap: () {
-                      Provider.of<HomeProvider>(context, listen: false)
-                          .searchtxt
-                          .clear();
                       hitSearchapi.fetchSearchresult(context);
                     },
                     child: const Icon(

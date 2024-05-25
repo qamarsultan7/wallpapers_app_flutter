@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:wallpapers_app_flutter/Model/DATA/Response/status.dart';
+import 'package:wallpapers_app_flutter/Resources/Widget/buttons.dart';
 import 'package:wallpapers_app_flutter/Resources/Widget/masonary_Grid.dart';
 import 'package:wallpapers_app_flutter/View%20Model/home_model.dart';
 
@@ -24,7 +25,14 @@ class HomeGrid extends StatelessWidget {
               homeViewModel: homeviewModel.imagesdata,
             );
           case Status.ERROR:
-            return const Text('Error');
+            return Center(
+              child: buttons(context, 'Refresh', const Icon(Icons.refresh), () {
+                Future.delayed(const Duration(seconds: 1), () {
+                  Provider.of<HomeViewModel>(context, listen: false)
+                      .fetchImagesList();
+                });
+              }),
+            );
           case Status.LOADING:
             return Shimmer.fromColors(
               baseColor: Colors.grey,
@@ -45,10 +53,12 @@ class HomeGrid extends StatelessWidget {
 class MasonaryGridShimmer extends StatelessWidget {
   final int counts;
   final int items;
+  final int padding;
   const MasonaryGridShimmer({
     Key? key,
     required this.counts,
     this.items = 20,
+    this.padding = 2,
   }) : super(key: key);
 
   @override
@@ -61,7 +71,7 @@ class MasonaryGridShimmer extends StatelessWidget {
       itemCount: items,
       itemBuilder: (context, index) {
         return Padding(
-          padding: const EdgeInsets.all(2.0),
+          padding: EdgeInsets.all(padding.toDouble()),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(20),
             child: Container(

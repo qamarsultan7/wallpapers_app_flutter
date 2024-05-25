@@ -1,6 +1,8 @@
 
 
 
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:wallpapers_app_flutter/Model/DATA/Response/status.dart';
 
 class ApiResponse<T> {

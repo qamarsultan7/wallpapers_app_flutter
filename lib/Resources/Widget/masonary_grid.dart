@@ -51,9 +51,10 @@ class MasonaryGrid extends StatelessWidget {
                         Shimmer.fromColors(
                           direction: ShimmerDirection.ttb,
                           baseColor: Colors.grey[300]!,
-                    highlightColor: Colors.grey[100]!,
+                          highlightColor: Colors.grey[100]!,
                           child: const MasonaryGridShimmer(
                             counts: 1,
+                            padding: 0,
                             items: 1,
                           ),
                         )),

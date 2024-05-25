@@ -27,68 +27,59 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: RefreshIndicator.adaptive(
-        backgroundColor: const Color.fromARGB(255, 3, 177, 108),
-        onRefresh: () {
-          return Future.delayed(const Duration(seconds: 1), () {
-            Provider.of<HomeViewModel>(context, listen: false)
-                .fetchImagesList();
-          });
-        },
-        child: SafeArea(
-          child: SingleChildScrollView(
-            child: Consumer<HomeProvider>(
-              builder: (_, value, __) => Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  children: [
-                    const SizedBox(
-                      height: 5,
-                    ),
-
-                    //Custom App bar
-                    AnimatedOpacity(
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Consumer<HomeProvider>(
+            builder: (_, value, __) => Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: [
+                  const SizedBox(
+                    height: 5,
+                  ),
+      
+                  //Custom App bar
+                  AnimatedOpacity(
+                    duration: const Duration(milliseconds: 200),
+                    opacity: value.isVisible ? 1 : 0,
+                    child: customAppbar(),
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+      
+                  //Search Bar
+                  Hero(
+                    tag: '',
+                    child: AnimatedOpacity(
                       duration: const Duration(milliseconds: 200),
                       opacity: value.isVisible ? 1 : 0,
-                      child: customAppbar(),
+                      child:
+                          searchBar(false, context),
                     ),
-                    const SizedBox(
-                      height: 5,
+                  ),
+      
+                  // Categories List
+                  AnimatedContainer(
+                    alignment: Alignment.center,
+                    duration: const Duration(milliseconds: 200),
+                    height: value.height.toDouble(),
+                    child: ListView(
+                      scrollDirection: Axis.horizontal,
+                      children: List.generate(5, (index) {
+                        return CategoryList(
+                          imgUrl: categoriesList[index].image,
+                          title: categoriesList[index].name,
+                        );
+                      }),
                     ),
-
-                    //Search Bar
-                    Hero(
-                      tag: '',
-                      child: AnimatedOpacity(
-                        duration: const Duration(milliseconds: 200),
-                        opacity: value.isVisible ? 1 : 0,
-                        child:
-                            searchBar(false, context),
-                      ),
-                    ),
-
-                    // Categories List
-                    AnimatedContainer(
-                      alignment: Alignment.center,
-                      duration: const Duration(milliseconds: 200),
-                      height: value.height.toDouble(),
-                      child: ListView(
-                        scrollDirection: Axis.horizontal,
-                        children: List.generate(5, (index) {
-                          return CategoryList(
-                            imgUrl: categoriesList[index].image,
-                            title: categoriesList[index].name,
-                          );
-                        }),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    // Random Images Grid
-                    const HomeGrid()
-                  ],
-                ),
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  // Random Images Grid
+                  const HomeGrid()
+                ],
               ),
             ),
           ),
