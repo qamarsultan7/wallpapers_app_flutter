@@ -2,12 +2,14 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:wallpapers_app_flutter/Model/DATA/Response/status.dart';
 import 'package:wallpapers_app_flutter/Resources/Widget/masonary_Grid.dart';
+import 'package:wallpapers_app_flutter/Resources/components/grid_view.dart';
 import 'package:wallpapers_app_flutter/View%20Model/search_viewmodel.dart';
 
 class SearchGrid extends StatelessWidget {
-   const SearchGrid({
+  const SearchGrid({
     Key? key,
   }) : super(key: key);
 
@@ -23,7 +25,13 @@ class SearchGrid extends StatelessWidget {
           case Status.ERROR:
             return const Text('Error');
           case Status.LOADING:
-            return const CircularProgressIndicator();
+            return Shimmer.fromColors(
+              baseColor: Colors.grey,
+              highlightColor: const Color.fromARGB(255, 255, 234, 234),
+              child: const MasonaryGridShimmer(
+                counts: 2,
+              ),
+            );
           default:
             return const Center(child: Text('Search Soething'));
         }

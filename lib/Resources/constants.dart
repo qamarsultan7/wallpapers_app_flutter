@@ -22,7 +22,7 @@ class AppUrls {
   }
   //Api Key is wrong Use Your Own
   static String apikey =
-      'F9HcvnXykXrtJ4vkSop3XnXP';
+      'EPqzcutrqU32CsLuf1qL6JfFen1d2sJ0DNYjBe9Z79qnM4EizvbZjD1N';
 }
 
 // ImgeViewScreen Arguments
